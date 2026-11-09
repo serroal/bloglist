@@ -35,6 +35,27 @@ test('all blogs have property id', async () => {
   }
 })
 
+test('a blog can be added ', async () => {
+  const newBlog = {
+    title: 'test blog',
+    author: 'test author',
+    url: 'http://www.testblogurl.com',
+    likes: 0
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  const response = await api.get('/api/blogs')
+  const titles = response.body.map(r => r.title)
+
+  assert.strictEqual(response.body.length, helper.initialBlogs.length + 1)
+  assert(titles.includes('test blog'))
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
