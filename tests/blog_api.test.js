@@ -72,6 +72,32 @@ test('a blog without likes prop is saved with 0 likes', async () => {
   assert.strictEqual(response.body.likes, 0)
 })
 
+test('a blog without title prop fails with 400 Error', async () => {
+  const newBlog = {
+    author: 'test author',
+    url: 'http://www.testblogurl.com',
+    likes: 0
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
+test('a blog without url prop fails with 400 Error', async () => {
+  const newBlog = {
+    title: 'test blog',
+    author: 'test author',
+    likes: 0
+  }
+
+  await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(400)
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
