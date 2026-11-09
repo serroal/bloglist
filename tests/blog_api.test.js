@@ -56,6 +56,22 @@ test('a blog can be added ', async () => {
   assert(titles.includes('test blog'))
 })
 
+test('a blog without likes prop is saved with 0 likes', async () => {
+  const newBlog = {
+    title: 'test blog no likes',
+    author: 'test author',
+    url: 'http://www.testblogurl.com',
+  }
+
+  const response = await api
+    .post('/api/blogs')
+    .send(newBlog)
+    .expect(201)
+    .expect('Content-Type', /application\/json/)
+
+  assert.strictEqual(response.body.likes, 0)
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
