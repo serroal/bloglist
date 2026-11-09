@@ -26,6 +26,15 @@ test('all blogs are returned', async () => {
   assert.strictEqual(response.body.length, helper.initialBlogs.length)
 })
 
+test('all blogs have property id', async () => {
+  const response = await api.get('/api/blogs')
+
+  for (const blog of response.body) {
+    assert.notStrictEqual(blog.id, undefined)
+    assert.strictEqual(blog._id, undefined)
+  }
+})
+
 after(async () => {
   await mongoose.connection.close()
 })
