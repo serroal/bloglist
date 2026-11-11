@@ -57,3 +57,35 @@ describe('favorite blog', () => {
     assert.deepStrictEqual(result, favorite)
   })
 })
+
+describe('most blogs', () => {
+  test('of empty list is null', () => {
+    const result = listHelper.mostBlogs([])
+    assert.strictEqual(result, null)
+  })
+
+  test('of a list is returned right', () => {
+    const mostBlogs = {
+      author: 'Robert C. Martin',
+      blogs: 3,
+    }
+    const result = listHelper.mostBlogs(helper.initialBlogs)
+    assert.deepStrictEqual(result, mostBlogs)
+  })
+})
+
+describe('most likes', () => {
+  test('of empty list is null', () => {
+    const result = listHelper.mostBlogs([])
+    assert.strictEqual(result, null)
+  })
+
+  test('of a list is returned right', () => {
+    const mostLikes = {
+      author: 'Edsger W. Dijkstra',
+      likes: 17
+    }
+    const result = listHelper.mostLikes(helper.initialBlogs)
+    assert.deepStrictEqual(result, mostLikes)
+  })
+})
